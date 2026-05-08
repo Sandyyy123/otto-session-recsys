@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OTTO Multi-Objective Session-Based Recommendation</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; font-size: 16px; }
+  body {
+    background: #0f172a; color: #e2e8f0;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    line-height: 1.7; min-height: 100vh;
+  }
+  nav {
+    position: sticky; top: 0; z-index: 1000;
+    background: #0f172aee; backdrop-filter: blur(12px);
+    border-bottom: 1px solid #1e293b; padding: 0.5rem 0;
+    overflow-x: auto; white-space: nowrap;
+  }
+  nav .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 1rem; display: flex; gap: 0.15rem; align-items: center; }
+  nav a { color: #94a3b8; text-decoration: none; font-size: 0.78rem; padding: 0.4rem 0.65rem; border-radius: 6px; transition: all 0.2s; flex-shrink: 0; }
+  nav a:hover, nav a:focus { color: #38bdf8; background: #1e293b; }
+  nav .nav-title { color: #38bdf8; font-weight: 700; font-size: 0.85rem; margin-right: 0.6rem; flex-shrink: 0; }
+  main { max-width: 1100px; margin: 0 auto; padding: 1.2rem 1.6rem 4rem; }
+  section { margin-bottom: 4rem; padding-top: 3.5rem; }
+  section:first-of-type { padding-top: 1rem; }
+  h1 {
+    font-size: 2.5rem; font-weight: 800; line-height: 1.2;
+    background: linear-gradient(135deg, #38bdf8, #a78bfa, #f472b6);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    margin-bottom: 0.6rem;
+  }
+  .subtitle { color: #94a3b8; font-size: 1.05rem; margin-bottom: 1.4rem; }
+  h2 {
+    font-size: 1.7rem; font-weight: 700; color: #38bdf8;
+    margin-bottom: 1.2rem; padding-bottom: 0.4rem; border-bottom: 2px solid #1e293b;
+  }
+  h3 { font-size: 1.18rem; font-weight: 600; margin: 1.4rem 0 0.6rem; color: #a78bfa; }
+  p { margin-bottom: 0.9rem; }
+  ul, ol { margin: 0.5rem 0 1rem 1.6rem; }
+  li { margin-bottom: 0.35rem; }
+  strong { color: #f8fafc; }
+  a { color: #38bdf8; text-decoration: none; border-bottom: 1px dashed #1e293b; }
+  a:hover { color: #a78bfa; border-bottom-color: #a78bfa; }
+  .box { border-radius: 10px; padding: 1.1rem 1.3rem; margin: 1rem 0 1.2rem; }
+  .box-pink   { background: #f472b610; border-left: 4px solid #f472b6; }
+  .box-green  { background: #34d39910; border-left: 4px solid #34d399; }
+  .box-blue   { background: #38bdf810; border-left: 4px solid #38bdf8; }
+  .box-purple { background: #a78bfa10; border-left: 4px solid #a78bfa; }
+  .box-amber  { background: #fbbf2410; border-left: 4px solid #fbbf24; }
+  pre { background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 1.1rem 1.3rem; overflow-x: auto; margin: 0.8rem 0 1.2rem; }
+  pre code { font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 0.85rem; line-height: 1.6; color: #e2e8f0; }
+  p code, li code, td code { background: #1e293b; padding: 0.15rem 0.4rem; border-radius: 4px; font-family: 'Cascadia Code', 'Consolas', monospace; font-size: 0.88em; color: #38bdf8; }
+  table { width: 100%; border-collapse: collapse; margin: 1rem 0; font-size: 0.92rem; }
+  th, td { padding: 0.6rem 0.9rem; text-align: left; border-bottom: 1px solid #1e293b; }
+  th { background: #1e293b; color: #38bdf8; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.04em; }
+  tr:hover { background: #1e293b40; }
+  .hero {
+    background: linear-gradient(135deg, #0f172a, #1e293b 60%, #0f172a);
+    padding: 3rem 2rem; border-radius: 16px; margin-bottom: 2rem;
+    border: 1px solid #334155; text-align: left;
+  }
+  .hero .meta { color: #94a3b8; font-size: 0.95rem; margin-top: 1rem; }
+  .meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 0.8rem; margin-top: 1rem; }
+  .meta-grid .item { background: #1e293b; padding: 0.7rem 0.9rem; border-radius: 8px; border-left: 3px solid #38bdf8; }
+  .meta-grid .item .lbl { display: block; font-size: 0.7rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.2rem; }
+  .meta-grid .item .val { font-weight: 700; color: #e2e8f0; font-size: 0.95rem; }
+  footer { text-align: center; color: #64748b; font-size: 0.85rem; padding: 2rem 1rem; border-top: 1px solid #1e293b; margin-top: 3rem; }
+  .placeholder { color: #fbbf24; font-style: italic; font-size: 0.85em; }
+</style>
+</head>
+<body>
+<nav><div class="nav-inner">
+  <span class="nav-title">Project 17: OTTO Recsys</span>
+  <a href="#overview">Overview</a>
+  <a href="#motivation">Motivation</a>
+  <a href="#data">Data</a>
+  <a href="#methods">Methods</a>
+  <a href="#baseline">Baseline</a>
+  <a href="#advanced">Advanced</a>
+  <a href="#discussion">Discussion</a>
+  <a href="#conclusion">Conclusion</a>
+  <a href="#refs">References</a>
+</div></nav>
+<main>
+
+<section id="overview" class="hero">
+  <h1>OTTO Multi-Objective Session-Based Recommendation</h1>
+  <div class="subtitle">Predicting clicks, carts, and orders for anonymous e-commerce sessions on Germany's second-largest online retailer.</div>
+  <div class="meta-grid">
+    <div class="item"><span class="lbl">Task</span><span class="val">Session-based ranking, multi-output</span></div>
+    <div class="item"><span class="lbl">Sessions (train)</span><span class="val">12.9 million</span></div>
+    <div class="item"><span class="lbl">Events</span><span class="val">220 million</span></div>
+    <div class="item"><span class="lbl">Items</span><span class="val">1.85 million</span></div>
+    <div class="item"><span class="lbl">Metric</span><span class="val">Weighted Recall@20</span></div>
+    <div class="item"><span class="lbl">Status</span><span class="val">Phase 1 scaffold</span></div>
+  </div>
+</section>
+
+<section id="motivation">
+  <h2>Motivation</h2>
+  <p>Most e-commerce traffic is anonymous or weakly identified. Classical user-based collaborative filtering needs a stable user identity to accumulate history; that identity is often missing. Session-based recommendation predicts the next item from the within-session sequence alone, which is the production reality for the majority of impressions on any large retailer.</p>
+  <div class="box box-blue">
+    <strong>Pairs with project 13 (H&amp;M).</strong> H&amp;M is collaborative filtering on persistent user history. OTTO is sequence modelling on within-session events. Together they cover the two production paradigms in modern recsys.
+  </div>
+  <p>The OTTO competition adds a multi-objective twist. Instead of a single next-event Recall@20, the score is a weighted sum across three event types:</p>
+  <pre><code>score = 0.10 * Recall@20(clicks)
+      + 0.30 * Recall@20(carts)
+      + 0.60 * Recall@20(orders)</code></pre>
+  <p>Orders are weighted six times higher than clicks because orders are the only event that closes the loop between recommendation and revenue.</p>
+</section>
+
+<section id="data">
+  <h2>Data</h2>
+  <p>OTTO Recommender Systems Dataset, released for the 2022 Kaggle competition. Four weeks of anonymised browsing and purchase events from OTTO's German storefront.</p>
+  <table>
+    <thead><tr><th>Item</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Train sessions</td><td>12,899,779</td></tr>
+      <tr><td>Test sessions</td><td>1,671,803</td></tr>
+      <tr><td>Total events</td><td>~220 million</td></tr>
+      <tr><td>Distinct items (aids)</td><td>1,855,603</td></tr>
+      <tr><td>Event types</td><td>clicks, carts, orders</td></tr>
+      <tr><td>Format</td><td>jsonl (raw) or parquet (community mirror)</td></tr>
+      <tr><td>Disk size</td><td>~7 GB jsonl, ~2.5 GB parquet</td></tr>
+    </tbody>
+  </table>
+  <div class="box box-amber">
+    <strong>Scaffold-only.</strong> Dataset exceeds 2 GB and is gated by Kaggle competition acceptance. Download instructions live in <code>data/README.md</code>; this scaffold does not pull data.
+  </div>
+</section>
+
+<section id="methods">
+  <h2>Methods</h2>
+  <h3>Co-visitation baseline</h3>
+  <p>For every ordered pair of events (a, b) in the same session within a 1-hour window, increment three sparse counters keyed on the source aid: a clicks counter, a carts counter, an orders counter. Increments are weighted by the type of event b (1.0 / 6.0 / 3.0). After all train sessions are processed, prune to the top 40 targets per source per matrix.</p>
+  <p>At inference, take the K=30 most recent events of the active session, look up each event's top neighbours in the matrix that matches the target task, aggregate scores with a recency decay, return top 20.</p>
+  <h3>SASRec multi-task transformer</h3>
+  <p>Causal self-attention over the session sequence, with three task-specific projection heads sharing a backbone. Training uses sampled-softmax loss with 200 uniform negatives per row, weighted by the official 0.10 / 0.30 / 0.60 schedule.</p>
+  <pre><code>seq -> item_emb + pos_emb -> [transformer x N] -> last_pos
+                                                        |
+                          +-----------+-----------------+-----------+
+                          |           |                 |
+                       clicks_head  carts_head      orders_head
+                          |           |                 |
+                          v           v                 v
+                       softmax(@ item_emb table)  -- top-20 each</code></pre>
+  <p>Default hyperparameters: d_model=64, n_heads=2, n_layers=2, max_seq_len=50, batch=512, AdamW lr=1e-3, 3 epochs.</p>
+</section>
+
+<section id="baseline">
+  <h2>Baseline Results</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Recall@20 clicks</td><td><span class="placeholder">TBD after model run</span></td></tr>
+      <tr><td>Recall@20 carts</td><td><span class="placeholder">TBD after model run</span></td></tr>
+      <tr><td>Recall@20 orders</td><td><span class="placeholder">TBD after model run</span></td></tr>
+      <tr><td><strong>Weighted Recall@20</strong></td><td><span class="placeholder">TBD after model run</span></td></tr>
+    </tbody>
+  </table>
+  <p>Expected weighted Recall@20: 0.55-0.58 based on community reports of co-visitation submissions on the public Kaggle leaderboard.</p>
+</section>
+
+<section id="advanced">
+  <h2>Advanced Results</h2>
+  <table>
+    <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+    <tbody>
+      <tr><td>Recall@20 clicks</td><td><span class="placeholder">TBD after model run</span></td></tr>
+      <tr><td>Recall@20 carts</td><td><span class="placeholder">TBD after model run</span></td></tr>
+      <tr><td>Recall@20 orders</td><td><span class="placeholder">TBD after model run</span></td></tr>
+      <tr><td><strong>Weighted Recall@20</strong></td><td><span class="placeholder">TBD after model run</span></td></tr>
+    </tbody>
+  </table>
+  <p>Expected weighted Recall@20: 0.59-0.62, lifted by 0.03-0.05 over the baseline. The lift is expected to concentrate on the orders task because the multi-task head explicitly trades click density for order signal.</p>
+</section>
+
+<section id="discussion">
+  <h2>Discussion</h2>
+  <h3>Why the baseline is competitive</h3>
+  <p>Co-visitation captures the strongest signal in the dataset: items that users buy together in the same session are likely to be the next items bought together. Per-event-type weighting lets the same matrix serve all three Recall@20 prediction tasks, which is the small-but-decisive advance over Sarwar 2001.</p>
+  <h3>Why the transformer is expected to win</h3>
+  <p>End-to-end optimised item embeddings, continuous positional reasoning instead of hand-crafted recency decay, and a shared backbone that lets order signal benefit from the abundant click signal.</p>
+  <h3>Phase 2 directions</h3>
+  <ul>
+    <li>Two-stage retrieve-then-rerank, with co-visitation as retriever and SASRec as reranker (Covington 2016 pattern)</li>
+    <li>MMoE-style multi-task routing to reduce gradient interference (Ma 2018a)</li>
+    <li>BERT4Rec masked-language-modelling pretraining (Sun 2019)</li>
+    <li>Importance-weighted negative sampling for popularity-bias correction (Yi 2019)</li>
+    <li>FAISS or ScaNN approximate nearest-neighbour serving for production deployment</li>
+    <li>Graph methods: SR-GNN (Wu 2019), KGAT (Wang 2019)</li>
+  </ul>
+</section>
+
+<section id="conclusion">
+  <h2>Conclusion</h2>
+  <div class="box box-green">
+    <p>Two reproducible reference systems for OTTO's multi-objective session-based recommendation task. The co-visitation baseline is the strongest non-neural option and serves as a candidate-generation oracle. The SASRec multi-task transformer adds learned item embeddings, continuous recency, and shared backbone gains across the three event heads. Both scripts are runnable and unexecuted; running them in the main session populates the placeholder cells above with measured numbers.</p>
+  </div>
+</section>
+
+<section id="refs">
+  <h2>References (top 5)</h2>
+  <ol>
+    <li>Kang W, McAuley J. Self-Attentive Sequential Recommendation. ICDM 2018. DOI:10.1109/ICDM.2018.00035</li>
+    <li>Sun F, Liu J, Wu J, Pei C, Lin X, Ou W. BERT4Rec. CIKM 2019. DOI:10.1145/3357384.3357895</li>
+    <li>de Souza Pereira Moreira G et al. Transformers4Rec. RecSys 2021. DOI:10.1145/3460231.3474255</li>
+    <li>Covington P, Adams J, Sargin E. Deep Neural Networks for YouTube Recommendations. RecSys 2016. DOI:10.1145/2959100.2959190</li>
+    <li>Ma J, Zhao Z, Yi X, Chen J, Hong L, Chi E. MMoE. KDD 2018. DOI:10.1145/3219819.3220007</li>
+  </ol>
+  <p>Full list of 22 verified references in <code>reports/references.md</code>.</p>
+</section>
+
+<footer>
+  Project 17 - Liora MLE Programme, Cohort 6973 - Phase 1 scaffold, 2026-05-08
+</footer>
+
+</main>
+</body>
+</html>
