@@ -18,7 +18,7 @@ is taken per task. Loss is a weighted sampled-softmax sum.
 Run:
     python src/model_advanced.py --data ../data --out ../deliverables --epochs 3
 
-The script is NOT executed in scaffold phase (Phase 1). The user runs
+The script is NOT executed in implementation phase (v1.0). The user runs
 it later in the main session, ideally on a GPU box (training takes
 roughly 6-12 hours on a single RTX 5090 at default hyperparameters).
 """

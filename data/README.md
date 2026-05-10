@@ -1,6 +1,6 @@
 # OTTO Dataset - download instructions
 
-The OTTO Recommender Systems dataset is gated by Kaggle competition acceptance and is approximately 7 GB on disk, well above the 2 GB scaffold-only threshold. This folder is empty by design. Download is a manual step.
+The OTTO Recommender Systems dataset is gated by Kaggle competition acceptance and is approximately 7 GB on disk, well above the 2 GB implementation-only threshold. This folder is empty by design. Download is a manual step.
 
 ## Step 1. Accept the competition rules
 
@@ -20,7 +20,7 @@ If not, download `kaggle.json` from https://www.kaggle.com/settings/account (Cre
 ## Step 3. Download
 
 ```bash
-cd /root/AI/liora_projects/17_otto_recsys/data
+cd /root/AI/project_root/data
 kaggle competitions download -c otto-recommender-system
 unzip otto-recommender-system.zip
 ```

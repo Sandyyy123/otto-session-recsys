@@ -14,7 +14,7 @@ memory if items are pre-filtered to the top 200K most-active aids.
 Run:
     python src/model_baseline.py --data ../data --out ../deliverables
 
-The script is NOT executed in scaffold phase (Phase 1). The user runs
+The script is NOT executed in implementation phase (v1.0). The user runs
 it later in the main session once the OTTO dataset has been downloaded
 to ../data/.
 """

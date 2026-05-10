@@ -84,7 +84,7 @@ Format follows the project rule: Authors. Title. Journal. Year. DOI. No volume, 
 The current `references.md` lists 22 entries that stop at 2022 (the most recent are Afsar 2022 on RL recommenders and Transformers4Rec 2021). The OTTO challenge has moved on substantially since then. The following five lines are the highest-leverage gaps that the project SHOULD cite, all live and verified:
 
 1. **Sampled softmax is not as well-behaved as the SASRec paper assumes.** Wu et al. 2024 in TOIS (DOI:10.1145/3637061) and Wu et al. 2024 at ICDE (DOI:10.1109/icde60146.2024.00068) directly address why the loss used in `model_advanced.py` is biased and propose drop-in replacements. Both are missing from the current bibliography and are directly implementable in the existing code.
-2. **LogQ correction for large-corpus retrieval was revisited at RecSys 2025** (Khrylchenko et al., DOI:10.1145/3705328.3748033). For a 1.85M-item catalog with sampled-softmax this is the single most relevant recent paper for a Phase 2 ablation.
+2. **LogQ correction for large-corpus retrieval was revisited at RecSys 2025** (Khrylchenko et al., DOI:10.1145/3705328.3748033). For a 1.85M-item catalog with sampled-softmax this is the single most relevant recent paper for a v2.0 ablation.
 3. **Generative retrieval with semantic identifiers** is the SOTA paradigm shift since 2023. The order-agnostic identifier work at SIGIR 2025 (Lin et al., DOI:10.1145/3726302.3730053) and the AAAI 2026 MusicRec paper (Zhao et al., DOI:10.1609/aaai.v40i19.38685) define the new direction. The current bibliography has no generative retrieval entries.
 4. **LLM-based recommender system agents** (Carraro et al., RecSys 2025, DOI:10.1145/3705328.3759334) and the Wang/Zhang/Chua 2024 chapter on recommendation in the era of generative AI (DOI:10.1007/978-3-031-73147-1_8) capture the shift the field has taken; both are missing.
 5. **Capsule and hypergraph GNN session models** have overtaken plain GNN session work in 2024-2025 benchmarks (El Alaoui et al. 2025 in Neural Networks, DOI:10.1016/j.neunet.2025.107176; Yang and Peng 2024 in Applied Intelligence, DOI:10.1007/s10489-024-05877-1). The current bibliography stops at SR-GNN 2019.
@@ -155,7 +155,7 @@ The existing references.md cites MMoE (2018) and ESMM (2018) but nothing from th
 
 ## Knowledge distillation and efficient session models
 
-Useful for the Phase 2 retrieve-then-rerank discussion in the brief.
+Useful for the v2.0 retrieve-then-rerank discussion in the brief.
 
 22. Yang Y, He J, Yang Y. On Adaptive Knowledge Distillation with Generalized KL-Divergence Loss for Ranking Model Refinement. Proceedings of the 2024 ACM SIGIR International Conference on Theory of Information Retrieval. 2024. DOI:10.1145/3664190.3672522
 

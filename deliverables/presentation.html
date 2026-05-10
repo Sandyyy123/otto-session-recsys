@@ -94,7 +94,7 @@
     <div class="item"><span class="lbl">Events</span><span class="val">220 million</span></div>
     <div class="item"><span class="lbl">Items</span><span class="val">1.85 million</span></div>
     <div class="item"><span class="lbl">Metric</span><span class="val">Weighted Recall@20</span></div>
-    <div class="item"><span class="lbl">Status</span><span class="val">Phase 1 scaffold</span></div>
+    <div class="item"><span class="lbl">Status</span><span class="val">Initial implementation</span></div>
   </div>
 </section>
 
@@ -127,7 +127,7 @@
     </tbody>
   </table>
   <div class="box box-amber">
-    <strong>Scaffold-only.</strong> Dataset exceeds 2 GB and is gated by Kaggle competition acceptance. Download instructions live in <code>data/README.md</code>; this scaffold does not pull data.
+    <strong>implementation-only.</strong> Dataset exceeds 2 GB and is gated by Kaggle competition acceptance. Download instructions live in <code>data/README.md</code>; this implementation does not pull data.
   </div>
 </section>
 
@@ -183,7 +183,7 @@
   <p>Co-visitation captures the strongest signal in the dataset: items that users buy together in the same session are likely to be the next items bought together. Per-event-type weighting lets the same matrix serve all three Recall@20 prediction tasks, which is the small-but-decisive advance over Sarwar 2001.</p>
   <h3>Why the transformer is expected to win</h3>
   <p>End-to-end optimised item embeddings, continuous positional reasoning instead of hand-crafted recency decay, and a shared backbone that lets order signal benefit from the abundant click signal.</p>
-  <h3>Phase 2 directions</h3>
+  <h3>v2.0 directions</h3>
   <ul>
     <li>Two-stage retrieve-then-rerank, with co-visitation as retriever and SASRec as reranker (Covington 2016 pattern)</li>
     <li>MMoE-style multi-task routing to reduce gradient interference (Ma 2018a)</li>
@@ -214,7 +214,7 @@
 </section>
 
 <footer>
-  Project 17 - Liora MLE Programme, Cohort 6973 - Phase 1 scaffold, 2026-05-08
+  Project 17 - Independent Research - Initial implementation, 2026-05-08
 </footer>
 
 </main>
