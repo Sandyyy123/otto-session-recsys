@@ -153,7 +153,7 @@ Key papers: SASRec (Kang & McAuley 2018), Transformer4Rec (de Souza Pereira More
 
 ## Author
 
-**Dr. Sandeep Grover** — PhD Data Science, independent ML researcher, Mössingen, Germany.
+**Dr. Sandeep Grover** — PhD Data Science, independent ML researcher, Germany.
 
 ---
 
