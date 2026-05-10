@@ -1,6 +1,6 @@
 # OTTO Multi-Objective Session-Based Recommendation
 
-![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-orange?logo=pytorch) ![Transformers](https://img.shields.io/badge/SASRec-Transformer-purple) ![License](https://img.shields.io/badge/license-MIT-lightgrey)
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-orange?logo=pytorch) ![Transformers](https://img.shields.io/badge/SASRec-Transformer-purple) ![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)
 
 Production-grade session-based recommendation system on the **OTTO e-commerce dataset** (12.9M sessions, 220M events, 1.85M items). Implements a co-visitation matrix baseline and a SASRec multi-task transformer optimised for three simultaneous objectives: clicks, add-to-carts, and orders.
 
