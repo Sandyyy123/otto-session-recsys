@@ -98,7 +98,7 @@ See `data/README.md` for full setup. Dataset acceptance required via Kaggle.
 
 ```bash
 git clone https://github.com/Sandyyy123/otto-session-recsys.git
-cd liora-17-otto-recsys
+cd otto-session-recsys
 pip install -r requirements.txt
 
 # Download dataset first (see data/README.md)
