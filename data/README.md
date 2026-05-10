@@ -20,7 +20,7 @@ If not, download `kaggle.json` from https://www.kaggle.com/settings/account (Cre
 ## Step 3. Download
 
 ```bash
-cd /root/AI/project_root/data
+cd data/
 kaggle competitions download -c otto-recommender-system
 unzip otto-recommender-system.zip
 ```
