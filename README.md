@@ -97,7 +97,7 @@ See `data/README.md` for full setup. Dataset acceptance required via Kaggle.
 ## Quick Start
 
 ```bash
-git clone https://github.com/Sandyyy123/liora-17-otto-recsys.git
+git clone https://github.com/Sandyyy123/otto-session-recsys.git
 cd liora-17-otto-recsys
 pip install -r requirements.txt
 
