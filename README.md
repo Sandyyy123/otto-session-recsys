@@ -1,3 +1,7 @@
+> **⚠️ Proprietary — All Rights Reserved.** © 2026 Sandeep Grover. This repository is licensed to Sandeep Grover and may **not** be used, run, copied, modified, distributed, or used to train models without prior written permission. Public visibility does not grant a license. See [LICENSE](LICENSE).
+
+---
+
 # OTTO Multi-Objective Session-Based Recommendation
 
 ![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python) ![PyTorch](https://img.shields.io/badge/PyTorch-2.x-orange?logo=pytorch) ![Transformers](https://img.shields.io/badge/SASRec-Transformer-purple) ![License](https://img.shields.io/badge/license-CC%20BY--NC%204.0-lightgrey)
